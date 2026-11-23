@@ -1,0 +1,12 @@
+{
+  "name": "cineforge-ai",
+  "version": "1.0.0",
+  "private": true,
+  "description": "CineForge local cinematic preview and Google Veo proxy",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

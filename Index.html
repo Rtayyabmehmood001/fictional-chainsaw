@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090911">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<title>CineForge AI — AI Video Studio</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+:root{--bg:#090911;--side:#0d0d17;--panel:#12121e;--panel2:#191927;--line:#29293d;--muted:#9292aa;--text:#f6f4ff;--purple:#915cff;--purple2:#b16cff;--green:#57d6a0}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px Inter,Arial,sans-serif}button,input,textarea,select{font:inherit}button{cursor:pointer;color:inherit}.app{display:flex;min-height:100vh}.sidebar{width:248px;background:var(--side);border-right:1px solid var(--line);padding:22px 15px;display:flex;flex-direction:column;flex-shrink:0}.brand{display:flex;gap:11px;align-items:center;font-weight:800;font-size:19px;padding:4px 8px 28px}.brandmark{height:39px;width:39px;border-radius:12px;background:linear-gradient(135deg,#b18aff,#6735dc);display:grid;place-items:center;font-size:21px}.brand em{font-style:normal;color:#b68cff}.navlabel{font-size:10px;letter-spacing:1.5px;color:#77778f;margin:18px 10px 8px}.nav{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:9px;color:#aaa9bf;margin:2px 0;text-align:left;border:1px solid transparent;background:none;width:100%;font-size:12px}.nav:hover,.nav.active{background:#211a35;border-color:#3d2d60;color:white}.nav .ico{width:19px;text-align:center;font-size:15px}.sidebottom{margin-top:auto}.upgrade{background:linear-gradient(145deg,#241a40,#151321);border:1px solid #46336e;padding:15px;border-radius:12px;margin:14px 0}.upgrade b{font-size:12px}.upgrade p{font-size:11px;line-height:1.6;color:#aaa6bf}.upgrade button,.primary{background:linear-gradient(100deg,#8049eb,#ad64f5);border:0;border-radius:8px;padding:11px 15px;font-weight:700;color:white}.upgrade button{width:100%;font-size:11px}.user{display:flex;align-items:center;gap:10px;padding:12px 5px;border-top:1px solid var(--line);font-size:11px}.avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#7550bd,#d17dbb);display:grid;place-items:center;font-weight:700}.user small{display:block;color:var(--muted);margin-top:4px}.main{flex:1;min-width:0}.topbar{height:69px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 30px;gap:15px}.search{background:#13131f;border:1px solid var(--line);border-radius:9px;padding:10px 13px;color:#aaa9bd;width:min(420px,45vw);font-size:12px}.topactions{display:flex;align-items:center;gap:12px}.credit{border:1px solid #49336e;color:#c7aaff;border-radius:20px;padding:9px 13px;font-size:11px}.iconbtn{background:#171725;border:1px solid var(--line);border-radius:9px;padding:9px 11px}.content{max-width:1500px;margin:auto;padding:27px 30px 45px}.page{display:none}.page.active{display:block}.hero{border:1px solid #34274f;border-radius:17px;overflow:hidden;min-height:210px;padding:30px;background:linear-gradient(90deg,#0c0b18 5%,#101020b8 48%,#11101a55),url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=1600&q=85') center 45%/cover;display:flex;align-items:center;margin-bottom:22px}.hero h1{font-size:32px;line-height:1.15;margin:0 0 10px;max-width:490px}.gradient{background:linear-gradient(90deg,#b58aff,#8e5bff);background-clip:text;color:transparent}.hero p{color:#c1bfd0;font-size:12px;margin:0 0 20px}.row{display:flex;align-items:center;justify-content:space-between;gap:15px}.muted{color:var(--muted)}.tiny{font-size:10px}.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:19px}.cardhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:17px}.cardhead h2{font-size:14px;margin:0}.studio{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(330px,.92fr);gap:18px}.tabs{display:flex;gap:8px;margin-bottom:17px}.tab{flex:1;background:#191927;border:1px solid var(--line);border-radius:8px;padding:11px;color:#aaa8bd;font-size:11px}.tab.active{background:#291b48;border-color:#7650ba;color:white}.label{font-size:11px;color:#c5c1d5;display:block;margin:13px 0 8px}.prompt{width:100%;height:135px;resize:vertical;background:#0b0b14;color:white;border:1px solid #36344d;border-radius:9px;padding:13px;line-height:1.6;font-size:12px;outline:none}.prompt:focus,input:focus,select:focus{border-color:var(--purple)}.fieldgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.field select,.field input{width:100%;background:#1a1a29;color:white;border:1px solid var(--line);border-radius:8px;padding:11px;font-size:11px}.generate{width:100%;margin-top:18px;padding:14px}.preview{background:#090911;border:1px solid var(--line);border-radius:10px;overflow:hidden}.previewimg{height:255px;background:linear-gradient(0deg,#07071099,transparent),url('https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1000&q=85') center/cover;display:grid;place-items:center}.previewimg canvas{width:100%;height:100%;object-fit:contain}.play{height:52px;width:52px;border-radius:50%;border:1px solid #ffffff88;background:#11111cbb;font-size:19px}.previewmeta{padding:13px}.progress{height:4px;background:#29283a;border-radius:5px;margin:10px 0}.progress span{display:block;width:34%;height:100%;background:#a36aff;border-radius:5px}.previewbuttons{display:flex;gap:7px;flex-wrap:wrap}.secondary{background:#1b1b2a;border:1px solid var(--line);border-radius:7px;padding:9px 11px;font-size:10px}.below{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:19px}.templates,.projects{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.tile{background:#171725;border:1px solid var(--line);border-radius:9px;overflow:hidden;cursor:pointer}.tile img{width:100%;height:90px;object-fit:cover;display:block}.tile div{padding:9px}.tile b{font-size:10px}.tile small{display:block;color:var(--muted);font-size:9px;margin-top:5px}.toolgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.tool{background:#191927;border:1px solid var(--line);border-radius:9px;padding:13px;cursor:pointer}.tool strong{font-size:11px}.tool p{font-size:10px;line-height:1.5;color:var(--muted);margin:6px 0 0}.sectiontitle{margin:4px 0 18px}.sectiontitle h1{font-size:23px;margin:0 0 7px}.sectiontitle p{font-size:12px;color:var(--muted);margin:0}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0}.stat{background:var(--panel);border:1px solid var(--line);padding:17px;border-radius:11px}.stat small{color:var(--muted);font-size:10px}.stat b{display:block;font-size:23px;margin-top:9px}.librarygrid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}.librarygrid .tile img{height:130px}.storyboard{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.scene{background:#171725;border:1px solid var(--line);padding:12px;border-radius:10px}.scene img{width:100%;height:120px;object-fit:cover;border-radius:7px}.scene b{display:block;font-size:11px;margin:9px 0}.scene p{font-size:10px;color:var(--muted);line-height:1.5}.settingspanel{max-width:700px}.settingrow{padding:15px 0;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:20px}.settingrow b{font-size:12px}.settingrow p{font-size:10px;color:var(--muted);margin:5px 0}.settingrow select{background:#191927;color:white;border:1px solid var(--line);border-radius:7px;padding:9px}.modalback{position:fixed;inset:0;background:#000b;display:none;place-items:center;padding:20px;z-index:5}.modalback.show{display:grid}.modal{background:#151522;border:1px solid #39334e;border-radius:15px;padding:23px;width:min(480px,100%)}.modal h2{font-size:17px;margin-top:0}.modal p{color:#aaa8bd;font-size:12px;line-height:1.7}.modal .close{float:right}.toast{position:fixed;bottom:20px;right:20px;background:#211a35;border:1px solid #5b4388;padding:13px 17px;border-radius:9px;font-size:11px;display:none;z-index:8}.toast.show{display:block}footer{text-align:center;color:#68677e;font-size:10px;padding:25px}
+@media(max-width:1050px){.sidebar{width:210px}.studio{grid-template-columns:1fr}.below{grid-template-columns:1fr}.librarygrid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:700px){.sidebar{width:62px;padding:15px 7px}.brand{padding:4px 4px 25px}.brandtext,.navlabel,.navtext,.upgrade,.usertext{display:none}.nav{justify-content:center;padding:12px 4px}.nav .ico{font-size:17px}.user{justify-content:center}.topbar{padding:0 13px}.content{padding:18px 12px}.hero{padding:20px;min-height:180px}.hero h1{font-size:25px}.studio{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.librarygrid{grid-template-columns:repeat(2,1fr)}.storyboard{grid-template-columns:1fr 1fr}.templates,.projects{grid-template-columns:repeat(2,1fr)}.search{width:48vw}.credit{display:none}}
+</style></head>
+<body><div class="app">
+<aside class="sidebar">
+ <div class="brand"><div class="brandmark">🎬</div><div class="brandtext">CineForge <em>AI</em><div class="tiny muted" style="font-weight:400;margin-top:3px">Create. Imagine. Inspire.</div></div></div>
+ <div class="navlabel">WORKSPACE</div>
+ <button class="nav active" data-page="studio"><span class="ico">✦</span><span class="navtext">AI Video Studio</span></button>
+ <button class="nav" data-page="projects"><span class="ico">▣</span><span class="navtext">My Projects</span></button>
+ <button class="nav" data-page="storyboards"><span class="ico">▤</span><span class="navtext">Storyboards</span></button>
+ <button class="nav" data-page="library"><span class="ico">▧</span><span class="navtext">Media Library</span></button>
+ <button class="nav" data-page="templates"><span class="ico">▦</span><span class="navtext">Templates</span></button>
+ <div class="navlabel">CREATE</div>
+ <button class="nav" data-page="images"><span class="ico">✧</span><span class="navtext">AI Image Studio</span></button>
+ <button class="nav" data-page="audio"><span class="ico">♫</span><span class="navtext">Audio Studio</span></button>
+ <button class="nav" data-page="settings"><span class="ico">⚙</span><span class="navtext">Settings</span></button>
+ <div class="sidebottom"><div class="upgrade"><b>♛ Creator Pro</b><p>Unlock advanced creative tools and premium workflows.</p><button onclick="showToast('Plan selection is a demo feature.')">Explore Plans</button></div><div class="user"><div class="avatar">CF</div><div class="usertext">Creator Account<small>Free workspace</small></div></div></div>
+</aside>
+<main class="main"><header class="topbar"><input class="search" id="search" placeholder="⌕   Search projects, templates and tools..."><div class="topactions"><span class="credit">✦ Free local workspace</span><button class="iconbtn" onclick="showToast('You are all caught up!')">♧</button><button class="iconbtn" onclick="openModal('Account','CineForge runs locally in this browser. No account or cloud storage is required.')">CF</button></div></header>
+<div class="content">
+<section class="page active" id="studio">
+ <div class="hero"><div><div class="tiny gradient" style="font-weight:700;letter-spacing:2px;margin-bottom:12px">THE AI FILMMAKING WORKSPACE</div><h1>Your Imagination.<br><span class="gradient">Infinite Cinema.</span></h1><p>Transform ideas into cinematic stories with your free, on-device creative AI workspace.</p><button class="primary" onclick="document.getElementById('prompt').focus()">Start Creating&nbsp; →</button> <button class="secondary" onclick="openModal('Welcome to CineForge AI','Create a local animated video, preview it, and download it as a WebM file. Generation and ambient audio run in your browser at no cost.')">▶ Watch Demo</button></div></div>
+ <div class="studio">
+  <div class="card"><div class="cardhead"><h2>✦ Create a New Video</h2><span class="tiny muted">VIDEO WORKSPACE</span></div>
+   <div class="tabs"><button class="tab active" data-mode="text">✦ Text to Video</button><button class="tab" data-mode="image">▧ Image to Video</button></div>
+   <div class="fieldgrid" style="margin-top:3px"><div class="field"><label class="label">Generation Engine</label><select id="generationEngine"><option value="local">Free local cinematic preview</option><option value="veo">Google Veo AI (API key required)</option></select></div><div class="field"><label class="label">AI connection</label><div id="apiStatus" class="secondary" style="padding:11px;color:var(--muted)">Checking server…</div></div></div>
+   <label class="label" id="promptlabel">Describe your video</label><textarea id="prompt" class="prompt" maxlength="2000" placeholder="A cinematic tracking shot through a futuristic city at sunset, glowing skyscrapers, atmospheric fog, flying vehicles, dramatic lighting..."></textarea><div class="row tiny muted" style="margin-top:7px"><button class="secondary" onclick="fillExample()">✧ Use example prompt</button><span id="count">0 / 2000</span></div>
+   <div id="uploadbox" style="display:none;margin-top:13px;border:1px dashed #625080;border-radius:9px;padding:18px;text-align:center"><input type="file" id="imagefile" accept="image/*"><p class="tiny muted">Choose a reference image from your device (local preview only).</p></div>
+   <div class="fieldgrid">
+    <div class="field"><label class="label">Aspect Ratio</label><select id="ratio"><option>16:9 Landscape</option><option>9:16 Portrait</option><option>1:1 Square</option><option>4:3 Classic</option><option>21:9 Cinematic</option></select></div>
+    <div class="field"><label class="label">Duration</label><select id="duration"><option>5 seconds</option><option selected>10 seconds</option><option>15 seconds</option><option>30 seconds</option></select></div>
+    <div class="field"><label class="label">Resolution</label><select id="resolution"><option>720p HD</option><option selected>1080p Full HD</option><option>2K</option><option>4K Ultra HD</option></select></div>
+    <div class="field"><label class="label">Visual Style</label><select id="style"><option>Cinematic Realistic</option><option>3D Animation</option><option>Anime</option><option>Fantasy</option><option>Cyberpunk</option><option>Documentary</option><option>Clay Animation</option></select></div>
+    <div class="field"><label class="label">Camera Movement</label><select id="camera"><option>Auto / Smart Camera</option><option>Slow Dolly In</option><option>Tracking Shot</option><option>Drone / Aerial</option><option>Orbit Camera</option><option>Handheld</option><option>Static Shot</option></select></div>
+    <div class="field"><label class="label">Frame Rate</label><select id="fps"><option>24 FPS – Film</option><option selected>30 FPS – Standard</option><option>60 FPS – Smooth</option></select></div>
+   </div>
+   <div class="fieldgrid" style="margin-top:3px"><div class="field"><label class="label">Audio</label><select id="audio"><option>Generate ambient audio</option><option>Dialogue / Voiceover</option><option>No audio</option><option>Music and sound effects</option></select></div><div class="field"><label class="label">Prompt Enhancement</label><select id="enhance"><option>Enabled</option><option>Disabled</option></select></div></div>
+   <button class="primary generate" onclick="generate()">✦ &nbsp; Generate Video</button><p class="tiny muted" style="text-align:center">Free local generation · No account or API key required</p>
+  </div>
+  <div class="card"><div class="cardhead"><h2>Video Preview</h2><span class="tiny muted">CANVAS · LOCAL</span></div><div class="preview"><div class="previewimg" id="previewimg"><button class="play" onclick="playPreview()">▶</button></div><div class="previewmeta"><div class="row"><b id="previewtitle" style="font-size:12px">Cinematic concept preview</b><span class="tiny muted" id="previewresolution">1080p</span></div><div class="progress"><span id="progressbar"></span></div><div class="row tiny muted"><span id="playtime">▶ &nbsp; 0:00 / 0:10</span><span>◖ &nbsp; ⛶</span></div><div class="previewbuttons" style="margin-top:13px"><button class="secondary" onclick="downloadVideo()">↓ Download</button><button class="secondary" onclick="shareVideo()">↗ Share</button><button class="secondary" onclick="addProject()">＋ Add to Project</button></div></div></div><div style="margin-top:16px"><div class="row"><b style="font-size:12px">Generation details</b><span class="tiny muted">LOCAL</span></div><p class="tiny muted" id="details" style="line-height:1.8">Your generated video settings and prompt summary will appear here.</p></div></div>
+ </div>
+ <div class="below"><div class="card"><div class="cardhead"><h2>Popular Templates</h2><button class="secondary" onclick="navigate('templates')">View all →</button></div><div class="templates" id="homeTemplates"></div></div><div class="card"><div class="cardhead"><h2>Recent Projects</h2><button class="secondary" onclick="navigate('projects')">View all →</button></div><div class="projects" id="homeProjects"></div></div></div>
+</section>
+<section class="page" id="projects"><div class="sectiontitle"><h1>My Projects</h1><p>Your creative workspace, all in one place.</p></div><div class="stats"><div class="stat"><small>Total projects</small><b>12</b></div><div class="stat"><small>Drafts</small><b>04</b></div><div class="stat"><small>Completed demos</small><b>08</b></div><div class="stat"><small>Storage used</small><b>2.4 GB</b></div></div><div class="card"><div class="cardhead"><h2>All projects</h2><button class="primary" onclick="navigate('studio')">＋ New Project</button></div><div class="librarygrid" id="projectGrid"></div></div></section>
+<section class="page" id="storyboards"><div class="sectiontitle"><h1>Storyboards</h1><p>Plan scenes, shots and visual continuity before production.</p></div><div class="card"><div class="cardhead"><h2>Storyboard · The Last Horizon</h2><button class="primary" onclick="addStoryboardScene()">＋ New Scene</button></div><div class="storyboard" id="storyGrid"></div></div></section>
+<section class="page" id="library"><div class="sectiontitle"><h1>Media Library</h1><p>Organize reference images and creative assets.</p></div><div class="card"><div class="cardhead"><h2>Assets</h2><label class="secondary">Upload local files <input type="file" accept="image/*" multiple style="max-width:120px;font-size:9px" onchange="uploadMedia(this)"></label></div><div class="librarygrid" id="libraryGrid"></div></div></section>
+<section class="page" id="templates"><div class="sectiontitle"><h1>Creative Templates</h1><p>Start with a visual direction and customize your own story.</p></div><div class="card"><div class="librarygrid" id="templateGrid"></div></div></section>
+<section class="page" id="images"><div class="sectiontitle"><h1>AI Image Studio</h1><p>Create an original local concept preview.</p></div><div class="card" style="max-width:760px"><label class="label">Describe the image you imagine</label><textarea class="prompt" id="imagePrompt" placeholder="A cinematic fantasy castle on a floating island, dramatic clouds, golden sunset..."></textarea><div class="fieldgrid"><div class="field"><label class="label">Image ratio</label><select id="imageRatio"><option>16:9</option><option>9:16</option><option>1:1</option></select></div><div class="field"><label class="label">Style</label><select id="imageStyle"><option>Photorealistic</option><option>Anime</option><option>3D Art</option><option>Illustration</option></select></div></div><button class="primary generate" onclick="generateLocalImage()">✦ Generate Image</button></div></section>
+<section class="page" id="audio"><div class="sectiontitle"><h1>Audio Studio</h1><p>Preview browser-generated voiceovers and sound directions.</p></div><div class="toolgrid"><div class="card"><h2 style="font-size:14px">🎙 Voiceover Studio</h2><p class="muted tiny">Uses the voices available on this device.</p><textarea class="prompt" id="voiceText" placeholder="Write your narration or dialogue..."></textarea><button class="primary generate" onclick="createVoiceover()">Create Voiceover</button></div><div class="card"><h2 style="font-size:14px">♫ Sound Design</h2><p class="muted tiny">Preview a generated sound category.</p><div class="toolgrid"><div class="tool" onclick="previewTone('atmosphere')"><strong>Atmosphere</strong><p>Wind, rain, city ambience</p></div><div class="tool" onclick="previewTone('cinematic')"><strong>Cinematic</strong><p>Impacts, risers, transitions</p></div><div class="tool" onclick="previewTone('music')"><strong>Music</strong><p>Emotional, epic, ambient</p></div><div class="tool" onclick="previewTone('foley')"><strong>Foley</strong><p>Footsteps, objects, motion</p></div></div></div></div></section>
+<section class="page" id="settings"><div class="sectiontitle"><h1>Settings</h1><p>Customize your CineForge workspace.</p></div><div class="card settingspanel"><div class="settingrow"><div><b>Google Veo API</b><p>Set GOOGLE_API_KEY in the server environment. Never place the key in HTML or browser code.</p></div><span id="settingsApiStatus" class="secondary">Checking…</span></div><div class="settingrow"><div><b>Workspace name</b><p>Personal creative workspace</p></div><input id="workspaceName" value="My CineForge Studio" style="background:#191927;color:white;border:1px solid var(--line);padding:9px;border-radius:7px;width:180px"></div><div class="settingrow"><div><b>Interface theme</b><p>Choose your preferred appearance.</p></div><select id="themeSetting"><option>Dark mode</option><option>Light mode (coming soon)</option></select></div><div class="settingrow"><div><b>Default video quality</b><p>Preferred output quality for new projects.</p></div><select id="qualitySetting"><option>1080p</option><option>720p</option><option>2K</option><option>4K</option></select></div><div class="settingrow"><div><b>Default aspect ratio</b><p>Choose your usual publishing format.</p></div><select id="ratioSetting"><option>16:9</option><option>9:16</option><option>1:1</option></select></div><div class="settingrow"><div><b>Notifications</b><p>Interface notification preferences.</p></div><input id="notificationsSetting" type="checkbox" checked></div><button class="primary" style="margin-top:18px" onclick="savePreferences()">Save Preferences</button></div></section>
+<footer>© 2026 CineForge AI · Create. Imagine. Inspire. <br><br>Free browser demo. Video rendering and audio run locally; no API or cloud service is required.</footer>
+</div></main></div>
+<div class="modalback" id="modal" onclick="if(event.target===this)closeModal()"><div class="modal"><button class="secondary close" onclick="closeModal()">✕</button><h2 id="modaltitle"></h2><p id="modalbody"></p><button class="primary" onclick="closeModal()">Got it</button></div></div><div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+const assets=[
+ ['Cinematic Realism','https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=500','Film look'],
+ ['Anime Worlds','https://images.unsplash.com/photo-1578632767115-351597cf2477?w=500','Illustrated'],
+ ['Fantasy Kingdom','https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500','Epic fantasy'],
+ ['Sci-Fi Future','https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=500','Futuristic'],
+ ['Ocean Dreams','https://images.unsplash.com/photo-1500375592092-40eb2168fd21?w=500','Nature'],
+ ['Neon City','https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=500','Cyberpunk'],
+ ['Mountain Journey','https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=500','Adventure'],
+ ['Space Odyssey','https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=500','Space']
+];
+function tile(a){return `<div class="tile" role="button" tabindex="0" data-template="${a[0]}" onclick="useTemplate('${a[0]}')"><img src="${a[1]}&amp;auto=format&amp;fit=crop" alt="${a[0]}" loading="lazy" decoding="async"><div><b>${a[0]}</b><small>${a[2]} · Use template →</small></div></div>`}
+function fill(id,arr){document.getElementById(id).innerHTML=arr.map(tile).join('')}
+fill('homeTemplates',assets.slice(0,3));fill('templateGrid',assets);fill('libraryGrid',assets.slice(0,6));fill('homeProjects',[['Dreamscape',assets[0][1],'10 sec · 1080p'],['Neon City',assets[5][1],'8 sec · 1080p'],['Ocean Vibes',assets[4][1],'12 sec · 1080p']]);fill('projectGrid',[...assets.slice(0,6)]);
+document.getElementById('storyGrid').innerHTML=[['01 · Opening','https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=500','Wide establishing shot. Introduce the world and atmosphere.'],['02 · Discovery','https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=500','Slow camera movement reveals the mysterious landscape.'],['03 · The Journey','https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=500','Follow the character toward the distant horizon.'],['04 · The City','https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=500','Build scale with a sweeping aerial shot.'],['05 · The Ocean','https://images.unsplash.com/photo-1500375592092-40eb2168fd21?w=500','A quiet emotional transition.'],['06 · Finale','https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500','End on a memorable cinematic image.']].map(s=>`<div class="scene"><img src="${s[1]}" alt="${s[0]}" loading="lazy" decoding="async"><b>${s[0]}</b><p>${s[2]}</p></div>`).join('');
+const pages=document.querySelectorAll('.page');
+const navItems=document.querySelectorAll('.nav');
+function navigate(page){pages.forEach(p=>p.classList.remove('active'));document.getElementById(page).classList.add('active');navItems.forEach(n=>n.classList.toggle('active',n.dataset.page===page));window.scrollTo(0,0)}
+navItems.forEach(n=>n.addEventListener('click',()=>navigate(n.dataset.page)));
+document.addEventListener('keydown',event=>{
+ if((event.key==='Enter'||event.key===' ') && event.target.matches('.tile[data-template]')){
+  event.preventDefault();
+  useTemplate(event.target.dataset.template);
+ }
+});
+const tabs=document.querySelectorAll('.tab');
+const prompt=document.getElementById('prompt');
+const promptCount=document.getElementById('count');
+const uploadBox=document.getElementById('uploadbox');
+const promptLabel=document.getElementById('promptlabel');
+tabs.forEach(t=>t.addEventListener('click',()=>{tabs.forEach(x=>x.classList.remove('active'));t.classList.add('active');let img=t.dataset.mode==='image';uploadBox.style.display=img?'block':'none';promptLabel.textContent=img?'Describe the motion for your image':'Describe your video'}));
+prompt.addEventListener('input',e=>promptCount.textContent=e.target.value.length+' / 2000');
+function fillExample(){prompt.value='A cinematic tracking shot through a futuristic city at sunset, glowing skyscrapers, flying vehicles, atmospheric fog, dramatic lighting, realistic reflections, smooth camera movement, highly detailed film aesthetic.';prompt.dispatchEvent(new Event('input'))}
+function useTemplate(name){navigate('studio');prompt.value='Create a '+name.toLowerCase()+' video with cinematic composition, beautiful lighting, smooth camera movement, rich atmosphere and consistent visual style.';prompt.dispatchEvent(new Event('input'));showToast(name+' template loaded into the prompt.')}
+const toast=document.getElementById('toast');
+function showToast(msg){toast.textContent=msg;toast.classList.add('show');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>toast.classList.remove('show'),3000)}
+function openModal(title,body){document.getElementById('modaltitle').textContent=title;document.getElementById('modalbody').textContent=body;document.getElementById('modal').classList.add('show')}
+function closeModal(){document.getElementById('modal').classList.remove('show')}
+
+let previewCanvas=null;
+let previewAnimation=null;
+let previewDuration=10;
+let previewPrompt='';
+let previewFrame=null;
+let previewBlob=null;
+let referenceImage=null;
+let sceneImage=null;
+let previewSceneUrl='';
+let referenceImageData=null;
+let remoteVideoUrl='';
+
+document.getElementById('imagefile').addEventListener('change',event=>{
+ const file=event.target.files[0];
+ if(!file)return;
+ const url=URL.createObjectURL(file);
+ const image=new Image();
+ image.onload=()=>{referenceImage=image;showToast('Reference image loaded locally.')};
+ image.src=url;
+ const reader=new FileReader();
+ reader.onload=()=>{referenceImageData=String(reader.result)};
+ reader.readAsDataURL(file);
+});
+
+function canvasSize(){
+ const ratio=document.getElementById('ratio').value;
+ if(ratio.startsWith('9:16'))return [360,640];
+ if(ratio.startsWith('1:1'))return [512,512];
+ if(ratio.startsWith('4:3'))return [480,360];
+ if(ratio.startsWith('21:9'))return [640,275];
+ return [640,360];
+}
+
+function hashText(text){
+ let hash=2166136261;
+ for(let i=0;i<text.length;i++){hash^=text.charCodeAt(i);hash=Math.imul(hash,16777619)}
+ return hash>>>0;
+}
+
+function drawImageCover(ctx,image,width,height,progress){
+ const camera=document.getElementById('camera').value;
+ const zoom=1.06+progress*.08;
+ const pan=(progress-.5);
+ let dx=0,dy=0;
+ if(camera.includes('Dolly')){dx=pan*width*.025;dy=pan*height*.015}
+ else if(camera.includes('Tracking')){dx=pan*width*.18;dy=Math.sin(progress*Math.PI)*height*.025}
+ else if(camera.includes('Drone')){dx=Math.cos(progress*Math.PI*2)*width*.035;dy=-progress*height*.07}
+ else if(camera.includes('Orbit')){dx=Math.sin(progress*Math.PI*2)*width*.07;dy=Math.cos(progress*Math.PI*2)*height*.025}
+ else if(camera.includes('Handheld')){dx=Math.sin(progress*31)*width*.006;dy=Math.cos(progress*27)*height*.008}
+ else dx=pan*width*.04;
+
+ const scale=Math.max(width/image.width,height/image.height)*zoom;
+ const drawWidth=image.width*scale,drawHeight=image.height*scale;
+ ctx.drawImage(image,(width-drawWidth)/2-dx,(height-drawHeight)/2-dy,drawWidth,drawHeight);
+}
+
+function drawPreview(ctx,width,height,elapsed,promptText){
+ const style=document.getElementById('style').value;
+ const progress=Math.min(elapsed/(previewDuration*1000||10000),1);
+ const time=elapsed/1000;
+ const gradient=ctx.createLinearGradient(0,0,width,height);
+ const palettes={
+  'Anime':['#4e3cff','#ff68aa'], 'Fantasy':['#245b54','#d5a94e'], 'Cyberpunk':['#09051f','#db32ff'],
+  'Documentary':['#314f55','#bfaa78'], 'Clay Animation':['#9b5f45','#efb7a0'],
+  '3D Animation':['#2368d6','#6de7d7'],'Cinematic Realistic':['#18263a','#b66f47']
+ };
+ const colors=palettes[style]||['#18263a','#a15cff'];
+ gradient.addColorStop(0,colors[0]);gradient.addColorStop(1,colors[1]);
+ ctx.fillStyle=gradient;ctx.fillRect(0,0,width,height);
+
+ const source=referenceImage && document.querySelector('.tab.active')?.dataset.mode==='image'?referenceImage:sceneImage;
+ if(source){drawImageCover(ctx,source,width,height,progress)}
+ else{
+  const sky=ctx.createLinearGradient(0,0,0,height);
+  sky.addColorStop(0,colors[0]);sky.addColorStop(.68,colors[1]);sky.addColorStop(1,'#090911');
+  ctx.fillStyle=sky;ctx.fillRect(0,0,width,height);
+  ctx.fillStyle='rgba(255,255,255,.08)';
+  for(let i=0;i<6;i++){
+   const x=(i*width*.22+time*8)% (width*1.3)-width*.15;
+   ctx.beginPath();ctx.ellipse(x,height*.65+i%2*20,width*.18,height*.025,0,0,Math.PI*2);ctx.fill();
+  }
+ }
+
+ ctx.save();
+ ctx.globalCompositeOperation='screen';
+ ctx.globalAlpha=.18;
+ const flareX=width*(.18+progress*.42);
+ const flareY=height*.16;
+ const flare=ctx.createRadialGradient(flareX,flareY,0,flareX,flareY,width*.16);
+ flare.addColorStop(0,'#fff7d6');flare.addColorStop(.08,'#ffc16e');flare.addColorStop(1,'rgba(255,160,60,0)');
+ ctx.fillStyle=flare;ctx.fillRect(0,0,width,height);
+ ctx.restore();
+
+ ctx.save();
+ ctx.globalAlpha=.10;
+ ctx.fillStyle='#dce9ff';
+ for(let i=0;i<28;i++){
+  const seed=hashText(promptText+i);
+  const x=(seed%10000)/10000*width;
+  const y=((seed*31%10000)/10000*height+time*(18+i%8))%height;
+  ctx.fillRect(x,y,1+(i%3),1+(i%3));
+ }
+ ctx.restore();
+
+ ctx.save();
+ ctx.globalAlpha=.035;
+ for(let y=0;y<height;y+=3){
+  ctx.fillStyle=y%2?'#ffffff':'#000000';
+  ctx.fillRect(0,y,width,1);
+ }
+ ctx.restore();
+
+ const vignette=ctx.createRadialGradient(width*.5,height*.48,height*.12,width*.5,height*.48,width*.72);
+ vignette.addColorStop(.55,'rgba(0,0,0,0)');
+ vignette.addColorStop(1,'rgba(3,3,10,.78)');
+ ctx.fillStyle=vignette;ctx.fillRect(0,0,width,height);
+
+ ctx.fillStyle='rgba(6,6,14,.64)';
+ ctx.fillRect(0,0,width,Math.max(24,height*.105));
+ ctx.fillStyle='rgba(255,255,255,.72)';
+ ctx.font=`600 ${Math.max(9,width/48)}px Inter,Arial,sans-serif`;
+ ctx.textAlign='left';
+ ctx.fillText(document.getElementById('style').value.toUpperCase(),width*.04,height*.055);
+ ctx.textAlign='right';
+ ctx.fillText(document.getElementById('camera').value,width*.96,height*.055);
+}
+
+function createPreviewCanvas(){
+ const [width,height]=canvasSize();
+ previewCanvas=document.createElement('canvas');
+ previewCanvas.width=width;previewCanvas.height=height;
+ previewCanvas.setAttribute('aria-label','Generated local video preview');
+ document.getElementById('previewimg').replaceChildren(previewCanvas);
+ return previewCanvas;
+}
+
+function animatePreview(){
+ if(!previewCanvas)return;
+ cancelAnimationFrame(previewAnimation);
+ const ctx=previewCanvas.getContext('2d');
+ const start=performance.now();
+ previewAnimation=requestAnimationFrame(function frame(now){
+  const elapsed=now-start;
+  drawPreview(ctx,previewCanvas.width,previewCanvas.height,elapsed,previewPrompt);
+  const progress=Math.min(elapsed/(previewDuration*1000),1);
+  document.getElementById('progressbar').style.width=(progress*100)+'%';
+  document.getElementById('playtime').textContent='▶   0:'+String(Math.floor(progress*previewDuration)).padStart(2,'0')+' / 0:'+String(previewDuration).padStart(2,'0');
+  if(progress<1)previewAnimation=requestAnimationFrame(frame);
+ });
+}
+
+function loadSceneImage(promptText){
+ const text=(promptText+' '+document.getElementById('style').value).toLowerCase();
+ let index=0;
+ const groups=[
+  [['anime'],1],[['fantasy','castle','kingdom','magic','dragon'],2],
+  [['city','cyberpunk','future','futuristic','neon','sci-fi','robot'],5],
+  [['ocean','sea','water','beach','surf'],4],
+  [['mountain','journey','forest','adventure','hike'],6],
+  [['space','planet','galaxy','astronaut','universe'],7],
+  [['film','cinematic','realistic','documentary','sunset'],0]
+ ];
+ for(const [words,assetIndex] of groups){
+  if(words.some(word=>text.includes(word))){index=assetIndex;break}
+ }
+ const url=assets[index][1].replace('w=500','w=1600')+'&auto=format&fit=crop';
+ if(previewSceneUrl===url&&sceneImage)return;
+ previewSceneUrl=url;
+ sceneImage=null;
+ const image=new Image();
+ image.crossOrigin='anonymous';
+ image.onload=()=>{
+  sceneImage=image;
+  if(previewCanvas)animatePreview();
+ };
+ image.onerror=()=>{sceneImage=null};
+ image.src=url;
+}
+
+async function generate(){
+ const p=prompt.value.trim();
+ if(!p){showToast('Please enter a prompt first.');return}
+ previewPrompt=p;
+ previewDuration=parseInt(document.getElementById('duration').value,10)||10;
+ previewBlob=null;
+ remoteVideoUrl='';
+ if(document.getElementById('generationEngine').value==='veo'){
+  await generateWithVeo(p);
+  return;
+ }
+ createPreviewCanvas();
+ if(!referenceImage||document.querySelector('.tab.active')?.dataset.mode!=='image')loadSceneImage(p);
+ animatePreview();
+ const ratio=document.getElementById('ratio').value;
+ const resolution=document.getElementById('resolution').value;
+ document.getElementById('previewtitle').textContent='Your concept · Preview';
+ document.getElementById('previewresolution').textContent=resolution;
+ document.getElementById('details').textContent=p+' | '+['ratio','duration','resolution','style','camera','fps','audio','enhance'].map(id=>document.getElementById(id).value).join(' · ');
+ document.getElementById('playtime').textContent='▶   0:00 / 0:'+String(previewDuration).padStart(2,'0');
+ showToast('Free local preview created.');
+}
+
+function playPreview(){
+ if(!previewCanvas){generate();return}
+ animatePreview();
+}
+
+async function generateWithVeo(promptText){
+ const button=document.querySelector('.generate[onclick="generate()"]');
+ if(button)button.disabled=true;
+ showToast('Contacting Google Veo AI...');
+ try{
+  const response=await fetch('/api/generate',{
+   method:'POST',
+   headers:{'Content-Type':'application/json'},
+   body:JSON.stringify({
+    prompt:promptText,
+    aspectRatio:document.getElementById('ratio').value,
+    durationSeconds:previewDuration,
+    style:document.getElementById('style').value,
+    camera:document.getElementById('camera').value,
+    fps:document.getElementById('fps').value,
+    resolution:document.getElementById('resolution').value,
+    audio:document.getElementById('audio').value,
+    promptEnhancement:document.getElementById('enhance').value==='Enabled',
+    referenceImage:document.querySelector('.tab.active')?.dataset.mode==='image'?referenceImageData:null
+   })
+  });
+  const data=await response.json();
+  if(!response.ok)throw new Error(data.error||'AI generation failed');
+
+  document.getElementById('previewtitle').textContent='Generating cinematic AI video';
+  document.getElementById('details').textContent='Google Veo is rendering: '+promptText;
+  let attempts=0;
+  while(attempts<72){
+   await new Promise(resolve=>setTimeout(resolve,5000));
+   attempts++;
+   document.getElementById('progressbar').style.width=Math.min(attempts/72*100,96)+'%';
+   const operationResponse=await fetch('/api/operation?name='+encodeURIComponent(data.operationName));
+   const operationData=await operationResponse.json();
+   if(!operationResponse.ok)throw new Error(operationData.error||'Could not check generation status');
+   if(operationData.done&&operationData.videoUrl){
+    remoteVideoUrl='/api/download?url='+encodeURIComponent(operationData.videoUrl);
+    const preview=document.getElementById('previewimg');
+    const video=document.createElement('video');
+    video.src=remoteVideoUrl;
+    video.controls=true;
+    video.autoplay=true;
+    video.loop=true;
+    video.playsInline=true;
+    video.style.width='100%';
+    video.style.height='100%';
+    video.style.objectFit='contain';
+    preview.replaceChildren(video);
+    document.getElementById('previewtitle').textContent='AI Cinematic Preview';
+    document.getElementById('previewresolution').textContent=document.getElementById('resolution').value;
+    document.getElementById('progressbar').style.width='100%';
+    document.getElementById('details').textContent=promptText+' | Google Veo · '+document.getElementById('ratio').value+' · '+previewDuration+' seconds';
+    previewBlob=null;
+    showToast('Google Veo video is ready.');
+    return;
+   }
+  }
+  throw new Error('Google Veo generation took too long');
+ }catch(error){
+  showToast(error.message);
+  createPreviewCanvas();
+  animatePreview();
+ }finally{
+  if(button)button.disabled=false;
+ }
+}
+
+async function downloadVideo(){
+ if(remoteVideoUrl){
+  const link=document.createElement('a');
+  link.href=remoteVideoUrl;
+  link.download='cineforge-veo-video.mp4';
+  link.click();
+  showToast('AI video download started.');
+  return;
+ }
+ if(!previewCanvas||!previewPrompt){showToast('Generate a video first.');return}
+ if(!previewCanvas.captureStream||!window.MediaRecorder){showToast('Video export is not supported by this browser. Try Chrome or Edge.');return}
+ const [width,height]=canvasSize();
+ const canvas=document.createElement('canvas');
+ canvas.width=width;canvas.height=height;
+ const ctx=canvas.getContext('2d');
+ const fps=parseInt(document.getElementById('fps').value.match(/\d+/)?.[0]||30,10);
+ const stream=canvas.captureStream(fps);
+ let audioContext=null;
+ if(document.getElementById('audio').value==='Generate ambient audio'||document.getElementById('audio').value==='Music and sound effects'){
+  try{
+   audioContext=new AudioContext();
+   const destination=audioContext.createMediaStreamDestination();
+   const gain=audioContext.createGain();gain.gain.value=.035;
+   const oscillator=audioContext.createOscillator();oscillator.type='sine';oscillator.frequency.value=110;
+   oscillator.connect(gain).connect(destination);oscillator.start();
+   destination.stream.getAudioTracks().forEach(track=>stream.addTrack(track));
+  }catch(error){showToast('Video export continued without audio.')}
+ }
+ const mimeTypes=['video/webm;codecs=vp9,opus','video/webm;codecs=vp8,opus','video/webm'];
+ const mimeType=mimeTypes.find(type=>MediaRecorder.isTypeSupported(type))||'';
+ const recorder=new MediaRecorder(stream,mimeType?{mimeType}:undefined);
+ const chunks=[];
+ recorder.ondataavailable=e=>{if(e.data.size)chunks.push(e.data)};
+ recorder.onstop=()=>{
+  previewBlob=new Blob(chunks,{type:mimeType||'video/webm'});
+  const url=URL.createObjectURL(previewBlob);
+  const link=document.createElement('a');
+  link.href=url;link.download='cineforge-local-video.webm';link.click();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+  stream.getTracks().forEach(track=>track.stop());
+  if(audioContext)audioContext.close();
+  showToast('Video downloaded successfully.');
+ };
+ recorder.start();
+ const started=performance.now();
+ showToast('Rendering '+previewDuration+' seconds locally...');
+ function render(now){
+  const elapsed=now-started;
+  drawPreview(ctx,width,height,elapsed,previewPrompt);
+  if(elapsed<previewDuration*1000)requestAnimationFrame(render);
+  else recorder.stop();
+ }
+ requestAnimationFrame(render);
+}
+
+async function shareVideo(){
+ if(remoteVideoUrl){
+  try{
+   const response=await fetch(remoteVideoUrl);
+   const blob=await response.blob();
+   const file=new File([blob],'cineforge-veo-video.mp4',{type:blob.type||'video/mp4'});
+   if(navigator.canShare&&navigator.canShare({files:[file]})){
+    await navigator.share({title:'CineForge AI video',files:[file]});
+   }else{
+    await navigator.clipboard.writeText(location.href);
+    showToast('File sharing is unavailable; page link copied.');
+   }
+  }catch(error){showToast('Could not prepare the AI video for sharing.')}
+  return;
+ }
+ if(!previewBlob){showToast('Download once first, then share the generated file.');return}
+ const file=new File([previewBlob],'cineforge-video.webm',{type:'video/webm'});
+ if(navigator.canShare&&navigator.canShare({files:[file]})){
+  await navigator.share({title:'CineForge video',files:[file]});
+ }else{
+  await navigator.clipboard.writeText(location.href);
+  showToast('Sharing files is unavailable; page link copied.');
+ }
+}
+
+function addProject(){
+ if(!previewPrompt){showToast('Generate a video before adding a project.');return}
+ let projects=[];
+ try{projects=JSON.parse(localStorage.getItem('cineforgeProjects')||'[]')}catch(error){}
+ projects.unshift({title:'Prompt Concept',prompt:previewPrompt,duration:previewDuration});
+ localStorage.setItem('cineforgeProjects',JSON.stringify(projects.slice(0,20)));
+ const grid=document.getElementById('projectGrid');
+ const node=document.createElement('div');
+ node.className='tile';node.innerHTML='<div><b>Prompt Concept</b><small>'+previewDuration+' sec · Saved locally →</small></div>';
+ node.onclick=()=>{prompt.value=previewPrompt;prompt.dispatchEvent(new Event('input'));navigate('studio')};
+ grid.prepend(node);
+ showToast('Project saved in this browser.');
+}
+
+function uploadMedia(input){
+ [...input.files].forEach(file=>{
+  if(!file.type.startsWith('image/'))return;
+  const url=URL.createObjectURL(file);
+  const tile=document.createElement('div');
+  tile.className='tile';
+  tile.innerHTML='<img src="'+url+'" alt="'+file.name+'" loading="lazy" decoding="async"><div><b>'+file.name+'</b><small>Local asset</small></div>';
+  document.getElementById('libraryGrid').prepend(tile);
+ });
+ showToast(input.files.length+' local file(s) added.');
+}
+
+function generateLocalImage(){
+ const text=document.getElementById('imagePrompt').value.trim();
+ if(!text){showToast('Describe the image first.');return}
+ prompt.value=text;prompt.dispatchEvent(new Event('input'));
+ const ratio=document.getElementById('imageRatio').value;
+ document.getElementById('ratio').value=ratio==='16:9'?'16:9 Landscape':ratio==='9:16'?'9:16 Portrait':'1:1 Square';
+ const style=document.getElementById('imageStyle').value;
+ const styleSelect=document.getElementById('style');
+ const matching=[...styleSelect.options].find(option=>option.text===style);
+ if(matching)styleSelect.value=matching.value;
+ document.querySelector('.tab[data-mode="text"]').click();
+ previewPrompt=text;
+ previewDuration=parseInt(document.getElementById('duration').value,10)||10;
+ previewBlob=null;
+ createPreviewCanvas();
+ animatePreview();
+ navigate('studio');
+ showToast('Local concept image added to the video preview.');
+}
+
+function createVoiceover(){
+ const text=document.getElementById('voiceText').value.trim();
+ if(!text){showToast('Write narration first.');return}
+ if(!window.speechSynthesis){showToast('Speech preview is not supported by this browser.');return}
+ speechSynthesis.cancel();
+ const utterance=new SpeechSynthesisUtterance(text);
+ speechSynthesis.speak(utterance);
+ showToast('Narration preview started.');
+}
+
+function previewTone(category){
+ const AudioContextClass=window.AudioContext||window.webkitAudioContext;
+ if(!AudioContextClass){showToast('Audio preview is not supported.');return}
+ const context=new AudioContextClass();
+ const oscillator=context.createOscillator();
+ const gain=context.createGain();
+ const frequencies={atmosphere:90,cinematic:55,music:220,foley:330};
+ oscillator.frequency.value=frequencies[category];
+ oscillator.type=category==='music'?'triangle':'sine';
+ gain.gain.setValueAtTime(.08,context.currentTime);
+ gain.gain.exponentialRampToValueAtTime(.001,context.currentTime+.8);
+ oscillator.connect(gain).connect(context.destination);
+ oscillator.start();oscillator.stop(context.currentTime+.8);
+ oscillator.onended=()=>context.close();
+ showToast(category+' audio preview played.');
+}
+
+function savePreferences(){
+ const settings={
+  name:document.getElementById('workspaceName').value,
+  theme:document.getElementById('themeSetting').value,
+  quality:document.getElementById('qualitySetting').value,
+  ratio:document.getElementById('ratioSetting').value,
+  notifications:document.getElementById('notificationsSetting').checked
+ };
+ localStorage.setItem('cineforgePreferences',JSON.stringify(settings));
+ showToast('Preferences saved in this browser.');
+}
+
+function loadPreferences(){
+ try{
+  const settings=JSON.parse(localStorage.getItem('cineforgePreferences'));
+  if(!settings)return;
+  document.getElementById('workspaceName').value=settings.name||'My CineForge Studio';
+  document.getElementById('themeSetting').value=settings.theme||'Dark mode';
+  document.getElementById('qualitySetting').value=settings.quality||'1080p';
+  document.getElementById('ratioSetting').value=settings.ratio||'16:9';
+  document.getElementById('notificationsSetting').checked=settings.notifications!==false;
+  const defaultRatio=settings.ratio||'16:9';
+  document.getElementById('ratio').value=defaultRatio==='9:16'?'9:16 Portrait':defaultRatio==='1:1'?'1:1 Square':'16:9 Landscape';
+  const defaultQuality=settings.quality||'1080p';
+  document.getElementById('resolution').value=defaultQuality==='720p'?'720p HD':defaultQuality==='2K'?'2K':defaultQuality==='4K'?'4K Ultra HD':'1080p Full HD';
+ }catch(error){}
+}
+
+function addStoryboardScene(){
+ const grid=document.getElementById('storyGrid');
+ const number=grid.children.length+1;
+ const scene=document.createElement('div');
+ scene.className='scene';
+ scene.innerHTML='<b>'+String(number).padStart(2,'0')+' · New Scene</b><p>Define the subject, camera movement and transition in this shot.</p>';
+ grid.appendChild(scene);
+ showToast('New storyboard scene added.');
+}
+
+document.getElementById('search').addEventListener('input',event=>{
+ const query=event.target.value.toLowerCase();
+ document.querySelectorAll('.tile,.tool').forEach(item=>item.style.display=item.textContent.toLowerCase().includes(query)?'':'none');
+});
+async function checkApiStatus(){
+ const status=document.getElementById('apiStatus');
+ const settingsStatus=document.getElementById('settingsApiStatus');
+ try{
+  const response=await fetch('/api/status');
+  const data=await response.json();
+  if(!response.ok)throw new Error();
+  status.textContent=data.configured?'Google Veo connected':'Google Veo key missing';
+  status.style.color=data.configured?'var(--green)':'#ffb878';
+ if(settingsStatus){
+  settingsStatus.textContent=data.configured?'Connected':'Key not configured';
+  settingsStatus.style.color=data.configured?'var(--green)':'#ffb878';
+ }
+ }catch(error){
+  status.textContent='Server unavailable';
+  status.style.color='#ff8a8a';
+ }
+}
+loadPreferences();
+checkApiStatus();
+</script></body></html>
